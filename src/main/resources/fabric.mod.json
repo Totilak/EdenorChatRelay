@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "EdenorChatRelay",
   "description": "",
-  "authors": [],
+  "authors": ["WesOrangePower","Totilak"],
   "contact": {},
   "license": "MIT",
   "icon": "assets/edenorchatrelay/icon.png",
@@ -17,12 +17,17 @@
       "ru.edenor.edenorchatrelay.client.EdenorchatrelayClient"
     ],
     "modmenu": [
-      "ru.edenor.edenorchatrelay.client.EdenorModMenuIntegration"
+      "ru.edenor.edenorchatrelay.client.ModMenuIntegration"
     ],
     "main": [
       "ru.edenor.edenorchatrelay.Edenorchatrelay"
     ]
   },
+  "mixins": [{
+    "config": "edenorchatrelay.mixins.json",
+    "environment": "client"
+  }
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-language-kotlin": ">=${kotlin_loader_version}",

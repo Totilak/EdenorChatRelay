@@ -1,11 +1,11 @@
-package ru.edenor.edenorchatrelay.config
+package ru.edenor.edenorchatrelay.client
 
 import me.shedaniel.autoconfig.ConfigData
 import me.shedaniel.autoconfig.annotation.Config
 import me.shedaniel.autoconfig.annotation.ConfigEntry
 
 @Config(name = "edenorchatrelay")
-class EdenorConfig : ConfigData {
+class Config : ConfigData {
   @ConfigEntry.Category("telegram")
   @ConfigEntry.Gui.TransitiveObject
   var telegram = TelegramSettings()

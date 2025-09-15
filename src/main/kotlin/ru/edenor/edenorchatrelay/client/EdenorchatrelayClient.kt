@@ -11,16 +11,15 @@ import me.shedaniel.autoconfig.AutoConfig
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer
 import net.fabricmc.api.ClientModInitializer
 import net.minecraft.client.MinecraftClient
-import ru.edenor.edenorchatrelay.config.EdenorConfig
 
 class EdenorchatrelayClient : ClientModInitializer {
 
   override fun onInitializeClient() {
-    AutoConfig.register(EdenorConfig::class.java) { definition, configClass ->
+    AutoConfig.register(Config::class.java) { definition, configClass ->
       GsonConfigSerializer(definition, configClass)
     }
 
-    val holder = AutoConfig.getConfigHolder(EdenorConfig::class.java)
+    val holder = AutoConfig.getConfigHolder(Config::class.java)
     initBot(holder.config)
 
     holder.registerSaveListener { _, newConfig ->
@@ -30,7 +29,7 @@ class EdenorchatrelayClient : ClientModInitializer {
     }
   }
 
-  private fun initBot(config: EdenorConfig) {
+  private fun initBot(config: Config) {
     val token = config.telegram.botToken
     val chatIdCopy = config.telegram.chatId // копия chatId для использования в лямбде
 
@@ -104,5 +103,14 @@ class EdenorchatrelayClient : ClientModInitializer {
     var bot: TelegramBot? = null
     var telegramEnabled = false
     var chatId: Long = 0
+
+    fun sendToTelegram(text: String) {
+      if (!telegramEnabled || bot == null) return
+      try {
+        bot!!.execute(SendMessage(chatId, text))
+      } catch (e: TelegramException) {
+        println("[EdenorChatRelay] Failed to send message: ${e.message}")
+      }
+    }
   }
 }
