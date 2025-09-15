@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "edenorchatrelay",
+  "version": "${version}",
+  "name": "EdenorChatRelay",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/edenorchatrelay/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "ru.edenor.edenorchatrelay.client.EdenorchatrelayDataGenerator"
+    ],
+    "client": [
+      "ru.edenor.edenorchatrelay.client.EdenorchatrelayClient"
+    ],
+    "modmenu": [
+      "ru.edenor.edenorchatrelay.client.EdenorModMenuIntegration"
+    ],
+    "main": [
+      "ru.edenor.edenorchatrelay.Edenorchatrelay"
+    ]
+  },
+  "mixins": [
+    "edenorchatrelay.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}",
+    "modmenu": "*",
+    "cloth-config": "*"
+  }
+}

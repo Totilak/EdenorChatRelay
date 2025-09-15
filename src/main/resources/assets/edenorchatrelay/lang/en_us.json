@@ -1,0 +1,10 @@
+{
+  "text.autoconfig.edenorchatrelay.title": "Edenor Chat Relay Settings",
+  "text.autoconfig.edenorchatrelay.category.telegram": "Telegram",
+
+  "text.autoconfig.edenorchatrelay.option.telegram.chatId": "Chat ID",
+  "text.autoconfig.edenorchatrelay.option.telegram.chatId.@Tooltip": "Telegram chat ID for relay",
+
+  "text.autoconfig.edenorchatrelay.option.telegram.botToken": "Bot Token",
+  "text.autoconfig.edenorchatrelay.option.telegram.botToken.@Tooltip": "Telegram bot token from @BotFather"
+}
