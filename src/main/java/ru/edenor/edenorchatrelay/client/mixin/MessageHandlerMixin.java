@@ -14,7 +14,9 @@ public class MessageHandlerMixin {
 
     @Inject(method = "onGameMessage", at = @At(value = "TAIL"))
     private void addChatMessage(GameMessageS2CPacket packet, CallbackInfo ci) {
-        var rawMessage = packet.content().getString();
-        MinecraftMessageHandler.onMinecraftMessage(rawMessage);
+        if (!packet.overlay()) {
+            var rawMessage = packet.content().getString();
+            MinecraftMessageHandler.onMinecraftMessage(rawMessage);
+        }
     }
 }

@@ -8,7 +8,8 @@ import com.pengrad.telegrambot.request.GetMe
 import com.pengrad.telegrambot.request.SendMessage
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import ru.edenor.edenorchatrelay.client.Config
+import ru.edenor.edenorchatrelay.client.EdenorchatrelayClient.Companion.config
+import java.util.concurrent.Executors
 
 object TelegramBot {
   var bot: TelegramBot? = null
@@ -16,18 +17,27 @@ object TelegramBot {
 
   val log: Logger = LoggerFactory.getLogger(TelegramBot::class.java)
 
+  val ex = Executors.newFixedThreadPool(4)
+
   fun sendToTelegram(text: String, quiet: Boolean = false) {
     if (bot == null) return
+
     try {
       val sendMessage = SendMessage(chatId, text)
       sendMessage.disableNotification(quiet)
-      bot!!.execute(sendMessage)
+      ex.execute {
+        try {
+          bot!!.execute(sendMessage)
+        } catch (e: TelegramException) {
+          log.error("Failed to send message: ${e.message}")
+        }
+      }
     } catch (e: TelegramException) {
-      log.error("Failed to send message: ${e.message}")
+      log.error("Failed to queue message: ${e.message}")
     }
   }
 
-  fun initBot(config: Config) {
+  fun initBot() {
     bot = null
     val token = config.telegram.botToken
     val chatId = config.telegram.chatId
@@ -53,7 +63,6 @@ object TelegramBot {
     }
   }
 
-
   fun onUpdate(updates: List<Update>): Int {
     for (update in updates) {
       val message = update.message() ?: continue
@@ -69,5 +78,4 @@ object TelegramBot {
       e.printStackTrace()
     }
   }
-
 }

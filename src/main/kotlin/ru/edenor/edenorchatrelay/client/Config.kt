@@ -16,6 +16,9 @@ class Config : ConfigData {
 
     @ConfigEntry.Gui.Tooltip
     var botToken: String = ""
+
+    @ConfigEntry.Gui.Tooltip
+    var sendAllChat: Boolean = false
   }
 }
 

@@ -15,18 +15,20 @@ class EdenorchatrelayClient : ClientModInitializer {
       GsonConfigSerializer(definition, configClass)
     }
 
-    val holder = AutoConfig.getConfigHolder(Config::class.java)
-    TelegramBot.initBot(holder.config)
+    val configHolder = AutoConfig.getConfigHolder(Config::class.java)
+    config = configHolder.get()
+    TelegramBot.initBot()
 
-    holder.registerSaveListener { _, newConfig ->
+    configHolder.registerSaveListener { _, newConfig ->
+      config = newConfig
       log.info("Config changed, validating Telegram settings...")
-      TelegramBot.initBot(newConfig)
+      TelegramBot.initBot()
       ActionResult.SUCCESS
     }
   }
 
-
   companion object {
     val log: Logger = LoggerFactory.getLogger("EdenorChatRelay")
+    lateinit var config: Config
   }
 }
