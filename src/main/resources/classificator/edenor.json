@@ -1,0 +1,26 @@
+[
+  {
+    "channel": "global",
+    "regex": "^\\[Г\\].*\\s(?<sender>\\w{3,16}): (?<content>.*)$"
+  },
+  {
+    "channel": "local",
+    "regex": "^\\[Рядом\\].*\\s(?<sender>\\w{3,16}): (?<content>.*)$"
+  },
+  {
+    "channel": "dm",
+    "regex": "^✉.*\\s+(?<sender>\\w{3,16}) → Тебе » (?<content>.*)$"
+  },
+  {
+    "channel": "death",
+    "regex": "^(?<content>🪦\\s+.*)$"
+  },
+  {
+    "channel": "join",
+    "regex": "^(?<content>→ .*присоединился к игре)$"
+  },
+  {
+    "channel": "leave",
+    "regex": "^(?<content>← .*вышел из игры)$"
+  }
+]
